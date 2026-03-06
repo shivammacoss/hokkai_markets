@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { FiArrowRight, FiPlay, FiStar, FiChevronDown, FiTrendingUp } from 'react-icons/fi'
+import { FiArrowRight, FiPlay, FiStar, FiChevronDown, FiTrendingUp, FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import AnimatedSection, { StaggerContainer, StaggerItem } from '../../components/AnimatedSection'
 import SectionHeader from '../../components/SectionHeader'
 import { testimonials, faqs } from '../HomeData'
@@ -33,6 +33,16 @@ function FAQItem({ q, a, index }) {
 }
 
 export default function BottomSection() {
+  const [currentTestimonial, setCurrentTestimonial] = useState(0)
+  
+  const nextTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
+  }
+  
+  const prevTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length)
+  }
+
   return (
     <>
       {/* TESTIMONIALS */}
@@ -42,13 +52,15 @@ export default function BottomSection() {
         </div>
         <div className="section-container relative z-10">
           <SectionHeader
-            badge="Testimonials"
-            title="What Our Clients Say"
-            highlight="Clients Say"
-            subtitle="Trusted by thousands of traders worldwide."
+            badge="Client Reviews"
+            title="What Traders Say About Us"
+            highlight="Traders Say"
+            subtitle="Real feedback from our global trading community."
           />
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-14">
-            {testimonials.map((t, i) => (
+          
+          {/* Desktop: Grid view */}
+          <StaggerContainer className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-6 mt-14">
+            {testimonials.slice(0, 6).map((t, i) => (
               <StaggerItem key={i}>
                 <div className="card jp-card h-full flex flex-col relative overflow-hidden">
                   <div className="absolute top-3 right-3 jp-kanji text-2xl text-white/[0.04] font-black">声</div>
@@ -64,13 +76,67 @@ export default function BottomSection() {
                     </div>
                     <div>
                       <div className="text-white font-semibold text-sm">{t.author}</div>
-                      <div className="text-gray-500 text-xs">{t.role}</div>
+                      <div className="text-gray-500 text-xs flex items-center gap-1">
+                        {t.role}
+                        <span className="text-[#00d4aa] ml-1">Verified</span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </StaggerItem>
             ))}
           </StaggerContainer>
+
+          {/* Mobile: Carousel view */}
+          <div className="md:hidden mt-14">
+            <div className="relative">
+              <div className="card jp-card flex flex-col relative overflow-hidden">
+                <div className="absolute top-3 right-3 jp-kanji text-2xl text-white/[0.04] font-black">声</div>
+                <div className="flex gap-1 mb-4">
+                  {Array.from({ length: testimonials[currentTestimonial].rating }).map((_, j) => (
+                    <FiStar key={j} size={14} style={{ color: '#c9a84c', fill: '#c9a84c' }} />
+                  ))}
+                </div>
+                <p className="text-gray-300 text-sm leading-relaxed flex-1 mb-5 italic">"{testimonials[currentTestimonial].quote}"</p>
+                <div className="flex items-center gap-3 pt-4 border-t border-white/5">
+                  <div className="w-9 h-9 rounded-full bg-red-accent/20 flex items-center justify-center text-red-accent font-bold text-sm">
+                    {testimonials[currentTestimonial].author[0]}
+                  </div>
+                  <div>
+                    <div className="text-white font-semibold text-sm">{testimonials[currentTestimonial].author}</div>
+                    <div className="text-gray-500 text-xs flex items-center gap-1">
+                      {testimonials[currentTestimonial].role}
+                      <span className="text-[#00d4aa] ml-1">Verified</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Navigation */}
+              <div className="flex justify-center gap-4 mt-6">
+                <button
+                  onClick={prevTestimonial}
+                  className="p-2 rounded-full border border-white/10 hover:border-red-accent/40 transition-colors"
+                >
+                  <FiChevronLeft size={20} className="text-white" />
+                </button>
+                <div className="flex items-center gap-2">
+                  {testimonials.map((_, i) => (
+                    <div
+                      key={i}
+                      className={`w-2 h-2 rounded-full transition-colors ${i === currentTestimonial ? 'bg-red-accent' : 'bg-white/20'}`}
+                    />
+                  ))}
+                </div>
+                <button
+                  onClick={nextTestimonial}
+                  className="p-2 rounded-full border border-white/10 hover:border-red-accent/40 transition-colors"
+                >
+                  <FiChevronRight size={20} className="text-white" />
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -82,7 +148,7 @@ export default function BottomSection() {
             badge="FAQ"
             title="Frequently Asked Questions"
             highlight="Frequently Asked"
-            subtitle="Find answers to the most common questions about trading with Hokkai Markets."
+            subtitle="Everything you need to know about trading with Hokkai Markets."
           />
           <div className="max-w-3xl mx-auto mt-12 space-y-3">
             {faqs.map((faq, i) => (
@@ -127,7 +193,7 @@ export default function BottomSection() {
               <Link to="/accounts" className="btn-primary text-base px-8 py-3.5 gap-2">
                 Open Live Account <FiArrowRight size={16} />
               </Link>
-              <Link to="/accounts" className="btn-outline text-base px-8 py-3.5 gap-2">
+              <Link to="/demo" className="btn-outline text-base px-8 py-3.5 gap-2">
                 <FiPlay size={14} /> Try Free Demo
               </Link>
             </div>

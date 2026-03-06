@@ -14,6 +14,7 @@ import HeroSection from './home/HeroSection'
 import AboutSection from './home/AboutSection'
 import WhySection from './home/WhySection'
 import MarketsSection from './home/MarketsSection'
+import LiveChartsSection from './home/LiveChartsSection'
 import PlatformSection from './home/PlatformSection'
 import AccountsSection from './home/AccountsSection'
 import ConditionsSection from './home/ConditionsSection'
@@ -22,7 +23,7 @@ import EducationSection from './home/EducationSection'
 import BottomSection from './home/BottomSection'
 
 // Stat Counter
-function StatCounter({ value, suffix, label, decimals }) {
+function StatCounter({ value, suffix, label, decimals, prefix }) {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.3 })
   return (
     <div ref={ref} className="text-center">
@@ -37,8 +38,9 @@ function StatCounter({ value, suffix, label, decimals }) {
           filter: 'drop-shadow(0 0 8px rgba(225,29,72,0.4))',
         }}
       >
+        {prefix && <span>{prefix}</span>}
         {inView
-          ? <CountUp end={value} duration={2.5} decimals={decimals} suffix={suffix} />
+          ? <CountUp end={value} duration={2.5} decimals={decimals} suffix={suffix} separator="," />
           : <span>0{suffix}</span>
         }
       </div>
@@ -97,22 +99,25 @@ function Home() {
       {/* 5. Markets */}
       <MarketsSection />
 
-      {/* 6. Platform */}
+      {/* 6. Live Charts */}
+      <LiveChartsSection />
+
+      {/* 7. Platform */}
       <PlatformSection />
 
-      {/* 7. Accounts */}
+      {/* 8. Accounts */}
       <AccountsSection />
 
-      {/* 8. Conditions */}
+      {/* 9. Conditions */}
       <ConditionsSection />
 
-      {/* 9. Tools */}
+      {/* 10. Tools */}
       <ToolsSection />
 
-      {/* 10. Education */}
+      {/* 11. Education */}
       <EducationSection />
 
-      {/* 11. Bottom (Testimonials + FAQ + CTA) */}
+      {/* 12. Bottom (Testimonials + FAQ + CTA) */}
       <BottomSection />
 
     </PageTransition>

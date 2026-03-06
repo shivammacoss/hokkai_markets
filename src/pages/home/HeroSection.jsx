@@ -11,10 +11,10 @@ import heroBg from '../../../video/hokkai_video_1.mp4'
 
 // Live data chips shown below the CTA
 const liveChips = [
-  { label: 'EUR/USD', value: '1.0854', change: '+0.21%', positive: true },
-  { label: 'XAU/USD', value: '2,034',  change: '+0.40%', positive: true },
-  { label: 'BTC/USD', value: '43,215', change: '-0.72%', positive: false },
-  { label: 'US30',    value: '38,654', change: '+0.32%', positive: true },
+  { label: 'EUR/USD', value: '1.0854', change: '+0.23%', positive: true },
+  { label: 'XAU/USD', value: '2,038.4',  change: '-0.11%', positive: false },
+  { label: 'BTC/USD', value: '67,842', change: '+1.42%', positive: true },
+  { label: 'US30',    value: '39,250', change: '+0.55%', positive: true },
 ]
 
 
@@ -222,11 +222,11 @@ export default function HeroSection() {
 
           {/* Ghost — White border */}
           <Link
-            to="/accounts"
+            to="/demo"
             className="inline-flex items-center gap-2 px-8 py-4 text-white font-semibold text-sm rounded-lg transition-all duration-300 hover:bg-white/8 hover:-translate-y-0.5 uppercase tracking-wider border border-white/25 hover:border-white/50"
             style={{ fontFamily: "'Michroma', sans-serif", letterSpacing: '0.08em' }}
           >
-            <FiPlay size={13} /> Try Free Demo
+            <FiPlay size={13} /> Try Demo Free
           </Link>
         </motion.div>
 
