@@ -68,7 +68,7 @@ const TradingViewChart = memo(function TradingViewChart({ symbol }) {
     <div
       className="tradingview-widget-container rounded-xl overflow-hidden border border-white/8"
       ref={container}
-      style={{ height: '515px', width: '100%' }}
+      style={{ height: '650px', width: '100%' }}
     >
       <div
         className="tradingview-widget-container__widget"
@@ -84,7 +84,7 @@ export default function LiveChartsSection() {
 
   return (
     <section
-      className="section-padding relative overflow-hidden"
+      className="py-24 md:py-32 relative overflow-hidden"
       style={{ background: 'linear-gradient(180deg, #05070a 0%, #07090e 100%)' }}
     >
       {/* Background elements */}
